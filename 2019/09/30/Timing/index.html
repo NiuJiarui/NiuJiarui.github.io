@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="脉冲星,科学,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="计时噪声：Timing noise include red noise, jitter noise, dispersion measure variation noise, and clock-ephemeris noise. 表征脉冲星计时噪声：参数方法(Bayesian)： 参数化方法假设光谱模型 power law, exponential law, and rational functio">
+<meta name="keywords" content="脉冲星,科学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="脉冲星Timing">
+<meta property="og:url" content="https://niujiarui.github.io/2019/09/30/Timing/index.html">
+<meta property="og:site_name" content="JiaRui&#39;s blog">
+<meta property="og:description" content="计时噪声：Timing noise include red noise, jitter noise, dispersion measure variation noise, and clock-ephemeris noise. 表征脉冲星计时噪声：参数方法(Bayesian)： 参数化方法假设光谱模型 power law, exponential law, and rational functio">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-13T07:14:00.786Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="脉冲星Timing">
+<meta name="twitter:description" content="计时噪声：Timing noise include red noise, jitter noise, dispersion measure variation noise, and clock-ephemeris noise. 表征脉冲星计时噪声：参数方法(Bayesian)： 参数化方法假设光谱模型 power law, exponential law, and rational functio">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://niujiarui.github.io/2019/09/30/Timing/">
+
+
+
+
+
+  <title>脉冲星Timing | JiaRui's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e0f6783a5a17baa8c7a2e0c897fa9a92";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JiaRui's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">牛佳瑞的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://niujiarui.github.io/2019/09/30/Timing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="NiuJiarui">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/WechatIMG2.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JiaRui's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">脉冲星Timing</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-30T00:00:00+08:00">
+                2019-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pulsar/" itemprop="url" rel="index">
+                    <span itemprop="name">pulsar</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>计时噪声：<br>Timing noise include red noise, jitter noise, dispersion measure variation noise, and clock-ephemeris noise.</p>
+<p>表征脉冲星计时噪声：<br>参数方法(Bayesian)： 参数化方法假设光谱模型 power law, exponential law, and rational functions<br>非参数方法(Frequentist)：非参数方法通常对光谱或系统传递函数没有先验假设</p>
+<p>与脉冲星噪声不同，引力波产生的计时残差在空间上相关，即，计时残差在脉冲星对之间相关。 随机背景没有预定的波形。 它的所有作用都可以通过计时残差中诱导的时序残差分量s的相关函数（空间和时间）来概括。</p>
+<p>Hellings and Downs curve<br>使用脉冲星时序阵列搜索随机引力波背景，以寻找由背景在阵列中的脉冲星上引起的时序残差中的相关性。 由广义相对论预测的各向同性，非极化引力波背景的相关特征遵循所谓的Hellings and Downs curve，这是地球脉冲星基线之间的角度的函数。</p>
+<p>脉冲星计时，这包括研究脉冲的到达时间（TOA）（通常通过在一个或几个望远镜中相干地添加许多单个脉冲来确定），最常见的是射电望远镜。 这些TOA可以非常精确地确定，在某些情况下，精度优于100 ns，但更常见的是几μs; 它们对应于脉冲星的特定经度（通常接近观测到的无线电发射最大的旋转相位）与地球对齐的时间。 因此，在任何两个无线电脉冲之间，脉冲星已旋转整数次。</p>
+<p>一个很好的时序解决方案（以后称为相位相干星历）必须能够准确预测TOA。这个星历包括一个特定的数学描述，其中包含一些关键的自由参数，描述脉冲星的旋转加上脉冲星参考系和接收望远镜参考系之间的转换。在大多数再循环脉冲发生器的参考系中，它们的旋转可以通过自旋频率（ν）加上一个小但恒定和负的自旋频率导数（ν）来描述。在接收射电望远镜的参考系中，这些到达时间受到脉冲星相对于射电望远镜的运动的影响。这有几个组成部分：天文台由地球自转引起的运动，地球相对于太阳系质心（SSB）的运动，以及脉冲星相对于SSB的运动，这可能受到脉冲星自身轨道运动的影响（如果碰巧有任何伴星）。</p>
+<a id="more"></a>
+
+<p>为了校正射电望远镜相对于SSB的运动，我们需要估计脉冲星在天空中的位置; 即，对于跨越多年的测量，赤经（α），赤纬（δ）和在这两个坐标（μα，μδ）中的变化量。 最后，如果脉冲星处于双星系统中，那么它的轨道运动通常可以通过五个开普勒参数进行参数化：这些参数是轨道周期（Pb），沿着视线（x）投射的脉冲星轨道的半长轴，轨道偏心率（e），近星点的经度（ω）和通过近星点的时间（T0）</p>
+<p>在某些情况下，可以测量一些额外的“后开普勒”参数，这些参数是由几何（Kopeikin 1996）和相对论（例如Damour和Taylor 1992）效应引起的。 在“黑寡妇”或“红背”脉冲星的情况下，对轨道有牛顿扰动，可能需要额外的参数（例如Shaifullah等人，2016）。 从参数的数量（及其测量精度）可以清楚地看出，这些相位相干星历表提供了大量的科学信息。</p>
+<ul>
+<li>对于每个TOA，TEMPO将首先对其进行校正。望远镜本地时间—UTC</li>
+<li>然后，计算射电望远镜相对于SSB的位置，首先使用地球自转表来计算射电望远镜相对于地球中心的位置，然后使用太阳系星历表（如DE 421，Folkner， Williams＆Boggs 2008或DE 430，Folkner et al.2014）将转换到SSB。 然后沿着脉冲星的方向（从α，δ，μα和μδ导出）投射该矢量，以计算射电望远镜相对于SSB在TOA上的运动的影响。 </li>
+<li>然后，如果脉冲星在双星系统中，则使用双星模型（如上述DD模型）来减去由轨道运动引起的时间延迟。 只有在这个阶段之后，TEMPO才能计算残差：这些是TOA减去脉冲星相应旋转模型的预测值。 通过以最小化残差平方和的方式改变定时参数来确定最佳拟合定时参数。</li>
+</ul>
+<p>问题：</p>
+<ul>
+<li>如果将TOA与该脉冲的模型估计进行比较，TEMPO只能确定相位相干星历，只有在建立了任意两个TOA（一组整数）之间的正确旋转计数之后，才能实现这一点。这就是我们所说的全局轮换计数。然而，连续观察之间的旋转计数通常是未知的。正如我们将要展示的那样，对于大多数脉冲星来说，这个问题很容易解决，但如果脉冲星没有紧密间隔的探测，就很难解决，就像闪烁的脉冲星或系统中的脉冲星一样。在非常微弱的脉冲星的情况下，即使对于间隔很近的观测，定时精度也可能太差而无法确定旋转计数。已知微弱脉冲星的数量已经显着增加，但主要射电望远镜可以探测到它们的时间保持不变，这意味着自动跟踪每个新脉冲星的时间减少。 这可以通过更高的灵敏度和更大的带宽来部分补偿，但也可以更仔细地协调观测，并通过丢弃许多科学上不那么有益的脉冲星。</li>
+</ul>
+<p>对于所有可用的观测：（i）对脉冲星出现的所有观测值进行TOA。 在可能的情况下，至少制作三个TOA  - 这对于从每天的数据中获得残余斜率非常重要。 （ii）使用与上一步骤相同的星历表。 （iii）运行TEMPO并查看残差。</p>
+<p>缺乏精确性源于多种因素：（a）自旋频率ν缺乏精确度（这足以准确预测TOA几个小时，但多年来可能不足以预测TOA）。（b） 脉冲星的天空位置与47 Tuc的中心位置略有不同的可能性; 这引入了由于地球运动引起的小延迟，其大小比脉冲星的一次旋转大。（c）ν随时间的未知变化。 </p>
+<p>改进步骤：</p>
+<ul>
+<li>更好的星历表。确定旋转计数的第一步是从一开始就使用所有连接的TOA组对旋转频率和其他参数进行更精确的估计。 这具有很大的优点，即对于工作的每个步骤，所有定时参数的估计受到来自所有连接的TOA组的残差斜率的约束。 由于最初的星历不能在所有间隙中提供可靠的旋转计数，因此我们不能假设知道它。 我们可以通过为每组连接的TOA拟合任意时间偏移来消除TEMPO中的这个假设。 这可以实现 - 在TEMPO中 - 通过JUMP语句将TOA与所有观察结果包括在一起。</li>
+<li>两者都引入了可选的PHASE +1语句。在这些观察中找到正确的旋转计数，可以在-0.5到0.5之间的间隔。 仅在此校正之后，即仅在TEMPO收敛于具有接近1的减小的χ2的星历表之后</li>
+</ul>
+<p>连接差距<br>我们现在到达路径上最重要的一步，以获得脉冲星的正确全局旋转计数。 我们查看TOA列表并找到间隔紧密的连接TOA组，即短间隙。 </p>
+<p>现在的问题是：是我们的原始星历）是否足够精确地预测这个间隙的旋转计数？ 为了找到答案，我们注释掉了内部的JUMP语句，确定对由此预测的旋转计数的校正，并引入PHASE + N语句，其中N是星历的整数。 在下文中，这种整数（或讨论k个间隙时k个整数的组合）被称为k-间隙解，1-gap解决方案将简称为解决方案。</p>
+<p>作图  rotation number–reduced chi2</p>
+<p>我们在这里将提到该过程的技术细节: 虽然较短间隙的解决方案将是相对较小的整数，但随着间隙长度的增加，解决方案的幅度显着增加。 为了缓解这个问题，初始星历可以用TEMPO在任何阶段计算的拟合后星历来代替。(ATTENTION: TOAs at phases close to 0.5)</p>
+<p>要取得成功，必须满足三个条件：（a）TOA必须准确。 如果一个TOA由于某种原因出错，它将使整个过程脱轨。 因此，在推导TOA时必须小心选择脉冲轮廓。 （b）TOA应相互一致（即最好来自同一望远镜和计时仪器），用于推导它们的模板也应相同。 （c）预拟星历必须包含一组适当的定时参数。 对于许多孤立的脉冲星，α，δ，ν和ν是完全足够的; 正如我们将看到47 Tuc aa的情况。 对于较长的时标，可能需要适当的运动参数。 然而，即使在孤立的脉冲星中，特别是年轻的脉冲星中，也存在诸如毛刺和定时噪声之类的现象，这可能使分析复杂化。</p>
+<p>当稀疏检测到的脉冲星是双星系统的一部分（从旋转周期的变化中立即变得明显），我们可以使用Freire，Kramer提出的方法从观察到的旋转周期及其衍生物中初步确定轨道参数。 ＆Lyne（2001a）; 4这用于在47 Tuc中找到几个脉冲星的轨道。然后可以通过将观察到的多普勒频移旋转周期作为时间的函数拟合到开普勒模型（这可以使用像FITORBIT这样的程序来完成）来改进那些初始轨道参数。用于这种脉冲星的相位相干星历可以使用我们上面刚刚描述的方法导出;但是，要实现这一点，我们必须对必须适合的双星参数进行良好的判断。对于具有近圆形轨道的脉冲星，从一开始就适合开普勒参数就足以找到相位连接。如果轨道是紧凑和偏心的，则可能需要从一开始就适应periastron（ω）的推进速度。</p>
+<p>question：</p>
+<ul>
+<li>M是什么？　拟合出的质量</li>
+<li>TOAs at phases close to 0.5会出现异常？</li>
+<li>ＴＯＡ如何得到？</li>
+<li>暴力解法21！ ？</li>
+</ul>
+<p>假设第一个间隙（在这种情况下是第2个）存在相位连接，这增加了星历的精度，这是从更大的连接TOA组中得出的。 这意味着，当我们尝试连接新的间隙（在这种情况下为11）时，可接受的解决方案的数量减少（在这种情况下，对于这两个假设中的每一个，从三个减少到两个）。这意味着对于间隙2存在可接受的1-gap解决方案<br>当它们同时被假定为两个间隙时，它们不能提供可接受的解决方案，即它们不能很好地作为2间隙解决方案一起工作。 由于该2-间隙解的降低的χ2高，因此基于该2-间隙解的任何k-间隙（具有k&gt; 2）解不太可能具有低的降低的χ2。 因此，当试图找到后续间隙的旋转计数时，我们可以忘记这种2间隙解决方案，即该组合未通过χ2筛。</p>
+<p>改进：</p>
+<ul>
+<li><a href="https://github.com/pfreire163/Dracula" target="_blank" rel="noopener">https://github.com/pfreire163/Dracula</a>.</li>
+<li>每次调用TEMPO时，它都会花费大部分时间（a）读取时钟校正文件并校正TOA，（b）读取地球自转文件并计算天文台位置，以及（c）读取太阳系星历表并计算地球位置。这些操作只需要完成一次。</li>
+<li>已经部分实现的一个改进是，脚本可以通过在共享内存中运行来运行得更快，就像在我们的Github实现中一样。这避免了将输出文件写入硬盘，这一过程会导致磁盘磨损，并比计算本身花费更多的时间。</li>
+<li>第四个改进与脚本本身有关。在当前版本中，用户决定接下来连接哪个gap。这并不一定是产生最小数量的解决方案的差距。显然，下一步是让脚本确定下一步连接的最佳间隙。这种最小化可能是非常重要的，因为当考虑多个步骤时，每一步解的数量的任何减少都会产生指数级的结果。</li>
+<li>第五项改进与对每种配合产生的时序解决方案的分析有关 - 它们提供的信息尚未用于上述工作中。 如果估计的位置远远超出望远镜光束，或者脉冲星具有负的˙P，则可以使用。 但是，后一种情况必须谨慎使用：在球状星团中，许多脉冲星具有负的P‘。</li>
+<li>应该提供极端加速的另一种技术是并行化连续间隙的解的计算。这在概念上非常简单：虽然脚本的一个版本仍在搜索间隙A的解决方案（使用间隙映射器），但它会将找到的任何可接受的1-gap解决方案传递给在间隙B上工作的脚本的第二个版本。排序（根据减少的χ2）新的1-gap解决方案针对从间隙A传递给它的所有先前未处理的1-间隙解决方案，然后处理最佳的（从要执行的任务列表中删除它）。假设采用1-gap解决方案，它将使用间隙映射器寻找间隙B的解决方案。如果找到任何可接受的2-gap解决方案，它将使用间隙映射器将它们传递给类似的脚本以找到间隙C的解决方案。这个脚本将它找到的可接受的3-gap解决方案传递给处理间隙D等的类似脚本。这节省了大量时间，不仅因为并行性 - 无需等待解决方案开始搜索k-gap解决方案 - 而且因为对于所有可接受的（k-1）-gap的发现的结论，在每个阶段通过减少的χ2进行的分类将处理集中在每个阶段的最佳可能解决方案上。这应该导致最少的TEMPO迭代。</li>
+</ul>
+<p>首先，我们运行’sieve.sh’脚本，使用间隙映射器寻找单个间隙（gapno.2inTable 2）的解决方案。</p>
+<p>我们写了第二个脚本（’test.sh’，也发现在德古拉Github存储库）对于任何一组k-gap解决方案，应用每个解决方案中包含的PHASE语句，然后使用TEMPO导出假设旋转计数的星历表。 然后脚本切换到后者作为起始星历，为此工作它将删除先前TOA列表中的所有PHASE语句，因为新星历已经考虑了这些语句。 如果用这个星历获得的所有预拟合残差都落在相对窄的范围内，或者如果它们具有明确的，缓慢变化的长期模式，那么我们知道我们有正确的解决方案。</p>
+<p>然后我们使用从正确的10-gap解决方案得到的星历作为新的起始星历。这意味着我们必须删除所有以前的PHASE语句。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>欢迎打赏小鱼干</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/WechatIMG10.png" alt="NiuJiarui Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/脉冲星/" rel="tag"># 脉冲星</a>
+          
+            <a href="/tags/科学/" rel="tag"># 科学</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/30/docker/" rel="next" title="docker">
+                <i class="fa fa-chevron-left"></i> docker
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/30/abbreviation& identification /" rel="prev" title="缩写与定义">
+                缩写与定义 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/WechatIMG2.jpeg" alt="NiuJiarui">
+            
+              <p class="site-author-name" itemprop="name">NiuJiarui</p>
+              <p class="site-description motion-element" itemprop="description">天尽头，何处有香丘</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:n2003password@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5072930953/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=4346235&auto=1&height=66"></iframe>
+         
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NiuJiarui</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
